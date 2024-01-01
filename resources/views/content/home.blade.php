@@ -1,4 +1,5 @@
 @extends('layouts.main')
+@section('title', 'home')
 @section('content')
 <div class="main-container">
     <div class="pd-ltr-20">

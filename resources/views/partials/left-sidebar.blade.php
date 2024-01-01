@@ -1,6 +1,6 @@
 <div class="left-side-bar">
     <div class="brand-logo">
-        <a href="{{ url('home') }}">
+        <a href="{{ route('admin.home') }}">
             <img src="{{ asset('/vendors/images/logointro.png') }}" alt="" class="dark-logo" />
             <img
                 src="{{ asset('/vendors/images/logointro.png') }}"
@@ -16,13 +16,13 @@
         <div class="sidebar-menu">
             <ul id="accordion-menu">
                 <li>
-                    <a href="calendar.html" class="dropdown-toggle no-arrow">
+                    <a href="{{ route('admin.home') }}" class="dropdown-toggle no-arrow">
                         <span class="micon bi bi-house"></span
                         ><span class="mtext">Dashboard</span>
                     </a>
                 </li>
                 <li>
-                    <a href="calendar.html" class="dropdown-toggle no-arrow">
+                    <a href="{{ route('admin.user.index') }}" class="dropdown-toggle no-arrow">
                         <span class="micon bi bi-person"></span
                         ><span class="mtext">User Management</span>
                     </a>

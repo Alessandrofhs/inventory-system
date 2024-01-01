@@ -7,96 +7,108 @@
                 <div class="row">
                     <div class="col-md-6 col-sm-12">
                         <div class="title">
-                            <h4>{{ $title ??__('User Data') }}</h4>
+                            <h4>{{ $title?? __('User Data Table') }}</h4>
                         </div>
                         <nav aria-label="breadcrumb" role="navigation">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item">
-                                    <a href="index.html">Home</a>
+                                    <a href="{{ route('admin.home') }}">Home</a>
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
-                                    {{ $title ??__('User Data') }}
+                                    {{ $title?? __('User Data Table') }}
                                 </li>
                             </ol>
                         </nav>
                     </div>
                 </div>
             </div>
-            <div class="pd-20 card-box mb-30">
-                <div class="clearfix mb-20">
-                    <div class="pull-left">
-                        <h4 class="text-blue h4">Data table</h4>
-                        <p>
-                            User data in this system
-                        </p>
-                    </div>
-                    <div class="pull-right">
-                        <a href="{{ route('user.add') }}" class="btn btn-success btn-sm scroll-click" rel="content-y" data-toggle="collapse" role="button">Add New<i class="fa fa-plus"></i>
-                        </a>
-                    </div>                
-                    @if (session('message'))
+            <!-- Simple Datatable start -->
+            <div class="card-box mb-30">                    
+                @if (session('message'))
                     <div class="alert alert-success">
                         {{ session('message') }}
                     </div>
-                    @endif    
+                @endif
+                <div class="pb-20">
+                    <div class="pd-20 card-box mb-30">
+						<div class="clearfix mb-20">
+							<div class="pull-left">
+								<h4 class="text-blue h4">User Data table</h4>
+								<p>
+									All user in system
+								</p>
+							</div>
+							<div class="pull-right">
+                                <button class="btn btn-primary btn-sm scroll-click" onclick="location.href='{{ route('admin.user.create') }}'">
+                                    Add New
+                                </button>
+                            </div>
+						</div>
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+									<th scope="col">No</th>
+									<th scope="col">Name</th>
+									<th scope="col">Username</th>
+									<th scope="col">Email</th>
+									<th scope="col">Role</th>
+                                    <th scope="col">Gender</th>
+                                    <th scope="col">Action</th>
+								</tr>
+							</thead>
+							<tbody>
+                                @foreach ($users as $user)
+                                <tr>
+									<td scope="row">{{ $loop->iteration }}</td>
+									<td>{{ $user->fullname }}</td>
+									<td>{{ $user->username }}</td>
+									<td>{{ $user->email }}</td>
+                                    <td>{{ $user->role }}</td>
+                                    <td>{{ $user->gender }}</td>
+									<td>
+                                        <div class="btn-group" role="group" aria-label="Action buttons">
+                                            <a href="{{ route('admin.user.edit', $user->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal{{ $user->id }}">Delete</button>
+                                        </div>
+                                    </td>
+								</tr>
+                                <div class="modal fade" id="deleteModal{{ $user->id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel{{ $user->id }}" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="deleteModalLabel{{ $user->id }}">Delete User</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Are you sure you want to delete {{ $user->fullname }}?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                                <form action="{{ route('admin.user.delete', ['id' => $user->id]) }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                @endforeach
+							</tbody>
+						</table>
+					</div>
                 </div>
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th scope="col">No</th>
-                            <th scope="col">Fullname</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Username</th>
-                            <th scope="col">Password</th>
-                            <th scope="col">Role</th>
-                            <th scope="col">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($users as $user)
-                        <tr>
-                            <th scope="row">{{ $loop->iteration }}</th>
-                            <td>$</td>
-                            <td>MarkOtto@mail.com</td>
-                            <td>MarkOtto</td>
-                            <td>Mark123</td>
-                            <td>Dosen</td>
-                            <td>
-                                <span class="badge badge-primary">Edit</span>
-                                <span class="badge badge-danger">Delete</span>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-                <div class="collapse collapse-box" id="striped-table">
-                    <div class="code-box">
-                        <div class="clearfix">
-                            <a href="javascript:;" class="btn btn-primary btn-sm code-copy pull-left" data-clipboard-target="#striped-table-code"><i class="fa fa-clipboard"></i> Copy Code</a>
-                            <a href="#striped-table" class="btn btn-primary btn-sm pull-right" rel="content-y" data-toggle="collapse" role="button"><i class="fa fa-eye-slash"></i> Hide Code</a>
-                        </div>
-                        <pre><code class="xml copy-pre hljs" id="striped-table-code">
-                            <span class="hljs-tag">&lt;<span class="hljs-name">table</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"table table-striped"</span>&gt;</span>
-                            <span class="hljs-tag">&lt;<span class="hljs-name">thead</span>&gt;</span>
-                            <span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span>
-                            <span class="hljs-tag">&lt;<span class="hljs-name">th</span> <span class="hljs-attr">scope</span>=<span class="hljs-string">"col"</span>&gt;</span>#<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>
-                            <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
-                            <span class="hljs-tag">&lt;/<span class="hljs-name">thead</span>&gt;</span>
-                            <span class="hljs-tag">&lt;<span class="hljs-name">tbody</span>&gt;</span>
-                            <span class="hljs-tag">&lt;<span class="hljs-name">tr</span>&gt;</span>
-                            <span class="hljs-tag">&lt;<span class="hljs-name">th</span> <span class="hljs-attr">scope</span>=<span class="hljs-string">"row"</span>&gt;</span>1<span class="hljs-tag">&lt;/<span class="hljs-name">th</span>&gt;</span>
-                            <span class="hljs-tag">&lt;/<span class="hljs-name">tr</span>&gt;</span>
-                            <span class="hljs-tag">&lt;/<span class="hljs-name">tbody</span>&gt;</span>
-                            <span class="hljs-tag">&lt;/<span class="hljs-name">table</span>&gt;</span>
-                    </code></pre>
-                    </div>
-                </div>
-            </div>
-            <!-- Striped table End -->
+            </div>            
+            <!-- Export Datatable End -->
         </div>
         <div class="footer-wrap pd-20 mb-20 card-box">
             DeskApp - Bootstrap 4 Admin Template By
-            <a href="https://github.com/dropways" target="_blank">Ankit Hingarajiya</a>
+            <a href="https://github.com/dropways" target="_blank"
+                >Ankit Hingarajiya</a
+            >
         </div>
     </div>
 </div>
+@endsection
