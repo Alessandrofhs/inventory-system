@@ -72,6 +72,7 @@
 		</button>
 		<!-- welcome modal end -->
 		<!-- js -->
+		@yield('scripts')
 		<script src="{{ asset('/vendors/scripts/core.js') }}"></script>
 		<script src="{{ asset('/vendors/scripts/script.min.js') }}"></script>
 		<script src="{{ asset('/vendors/scripts/process.js') }}"></script>

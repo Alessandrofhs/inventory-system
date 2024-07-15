@@ -7,7 +7,7 @@
                     <div class="row">
                         <div class="col-md-6 col-sm-12">
                             <div class="title">
-                                <h4>{{ $title ?? __('User Data Table') }}</h4>
+                                <h4>{{ $title ?? __('Product Data Table') }}</h4>
                             </div>
                             <nav aria-label="breadcrumb" role="navigation">
                                 <ol class="breadcrumb">
@@ -15,7 +15,7 @@
                                         <a href="{{ route('admin.home') }}">Home</a>
                                     </li>
                                     <li class="breadcrumb-item active" aria-current="page">
-                                        {{ $title ?? __('User Data Table') }}
+                                        {{ $title ?? __('Product Data Table') }}
                                     </li>
                                 </ol>
                             </nav>
@@ -33,14 +33,14 @@
                         <div class="pd-20 card-box mb-30">
                             <div class="clearfix mb-20">
                                 <div class="pull-left">
-                                    <h4 class="text-blue h4">User Data table</h4>
+                                    <h4 class="text-blue h4">Product Data table</h4>
                                     <p>
-                                        All user in system
+                                        All Product on Company
                                     </p>
                                 </div>
                                 <div class="pull-right">
                                     <button class="btn btn-primary btn-sm scroll-click"
-                                        onclick="location.href='{{ route('admin.user.create') }}'">
+                                        onclick="location.href='{{ route('admin.product.create') }}'">
                                         Add New
                                     </button>
                                 </div>
@@ -50,59 +50,53 @@
                                     <tr>
                                         <th scope="col">No</th>
                                         <th scope="col">Name</th>
-                                        <th scope="col">Username</th>
-                                        <th scope="col">Email</th>
-                                        <th scope="col">Role</th>
-                                        <th scope="col">Gender</th>
-                                        <th scope="col">Phone</th>
-                                        <th scope="col">Address</th>
+                                        <th scope="col">Amount</th>
+                                        <th scope="col">Place</th>
+                                        <th scope="col">Update at</th>
                                         <th scope="col">image</th>
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($users as $user)
+                                    @foreach ($products as $product)
                                         <tr>
                                             <td scope="row">{{ $loop->iteration }}</td>
-                                            <td>{{ $user->fullname }}</td>
-                                            <td>{{ $user->username }}</td>
-                                            <td>{{ $user->email }}</td>
-                                            <td>{{ $user->role }}</td>
-                                            <td>{{ $user->gender }}</td>
-                                            <td>{{ $user->phone }}</td>
-                                            <td>{{ $user->address }}</td>
-                                            <td><img src="{{ asset('storage/photo-user/' . $user->image) }}"
+                                            <td>{{ $product->name }}</td>
+                                            <td>{{ $product->amount }}</td>
+                                            <td>{{ $product->place }}</td>
+                                            <td>{{ $product->update_at }}</td>
+                                            <td><img src="{{ asset('storage/photo-product/' . $product->image) }}"
                                                     style="max-width: 100px; max-height: 100px;" alt=""></td>
                                             <td>
                                                 <div class="btn-group" role="group" aria-label="Action buttons">
-                                                    <a href="{{ route('admin.user.edit', $user->id) }}"
+                                                    <a href="{{ route('admin.product.edit', $product->id) }}"
                                                         class="btn btn-warning btn-sm">Edit</a>
                                                     <button type="button" class="btn btn-danger btn-sm" data-toggle="modal"
-                                                        data-target="#deleteModal{{ $user->id }}">Delete</button>
+                                                        data-target="#deleteModal{{ $product->id }}">Delete</button>
                                                 </div>
                                             </td>
                                         </tr>
-                                        <div class="modal fade" id="deleteModal{{ $user->id }}" tabindex="-1"
-                                            role="dialog" aria-labelledby="deleteModalLabel{{ $user->id }}"
+                                        <div class="modal fade" id="deleteModal{{ $product->id }}" tabindex="-1"
+                                            role="dialog" aria-labelledby="deleteModalLabel{{ $product->id }}"
                                             aria-hidden="true">
                                             <div class="modal-dialog" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title" id="deleteModalLabel{{ $user->id }}">
-                                                            Delete User</h5>
+                                                        <h5 class="modal-title" id="deleteModalLabel{{ $product->id }}">
+                                                            Delete product</h5>
                                                         <button type="button" class="close" data-dismiss="modal"
                                                             aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        Are you sure you want to delete {{ $user->fullname }}?
+                                                        Are you sure you want to delete {{ $product->fullname }}?
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary"
                                                             data-dismiss="modal">Cancel</button>
                                                         <form
-                                                            action="{{ route('admin.user.delete', ['id' => $user->id]) }}"
+                                                            action="{{ route('admin.product.delete', ['id' => $product->id]) }}"
                                                             method="POST">
                                                             @csrf
                                                             @method('DELETE')
