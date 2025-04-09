@@ -17,24 +17,28 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('admin.user.index') }}" class="dropdown-toggle no-arrow">
+                    {{-- <a href="{{ route('admin.user.index') }}" class="dropdown-toggle no-arrow">
                         <span class="micon bi bi-person"></span><span class="mtext">User Management</span>
-                    </a>
+                    </a> --}}
                 </li>
                 <li>
-                    <a href="{{ route('admin.product.index') }}" class="dropdown-toggle no-arrow">
+                    {{-- <a href="{{ route('admin.product.index') }}" class="dropdown-toggle no-arrow">
                         <span class="micon bi bi-box"></span><span class="mtext">Inventory</span>
-                    </a>
+                    </a> --}}
                 </li>
                 <li>
-                    <a href={{ route('admin.usegood.index')}} class="dropdown-toggle no-arrow">
+                    {{-- <a href={{ route('admin.usegood.index')}} class="dropdown-toggle no-arrow">
                         <span class="micon bi bi-box"></span><span class="mtext">Use of Goods</span>
-                    </a>
+                    </a> --}}
                 </li>
-                <li>
-                    <a href="calendar.html" class="dropdown-toggle no-arrow">
-                        <span class="micon bi bi-box"></span><span class="mtext">Return of Goods</span>
+                <li class="dropdown">
+                    <a href="javascript:;" class="dropdown-toggle">
+                        <span class="micon bi bi-archive"></span><span class="mtext"> Manajemen Training </span>
                     </a>
+                    <ul class="submenu">
+                        <li><a href="{{ route('admin.traning5r') }}">Training 5R</a></li>
+                        <li><a href="{{ route('admin.trainingojt') }}">On the Job Training</a></li>
+                    </ul>
                 </li>
                 <li class="dropdown">
                     <a href="javascript:;" class="dropdown-toggle">
