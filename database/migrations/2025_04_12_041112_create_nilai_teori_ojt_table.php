@@ -11,14 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('nilai_ojt', function (Blueprint $table) {
+        Schema::create('nilai_teori_ojt', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
-            $table->string('departemen');
-            $table->unsignedBigInteger('materi_soal_id'); 
-            $table->foreign('materi_soal_id')->references('id')->on('materi_soal')->onDelete('cascade');
-            $table->string('nilai_teori');
-            $table->string('nilai_praktek');
+            $table->string('nilai');
+            $table->dateTime('tanggal');
+            $table->string('status');
             $table->timestamps();
         });
     }

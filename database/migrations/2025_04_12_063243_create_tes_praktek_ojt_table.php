@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('products', function (Blueprint $table) {
+        Schema::create('tes_praktek_ojt', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->integer('amount');
-            $table->string('place');
-            $table->string('image');
-            $table->dateTime('update_at');
+            $table->unsignedBigInteger('type_part_id');
+            $table->foreign('type_part_id')->references('id')->on('master_tes_praktek')->onDelete('cascade');
+            $table->string('score');
             $table->timestamps();
         });
     }
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('products');
+        Schema::dropIfExists('tes_praktek_ojt');
     }
 };

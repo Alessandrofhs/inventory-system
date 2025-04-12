@@ -11,8 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('address')->nullable()->after('phone');
+        Schema::create('master_tes_praktek', function (Blueprint $table) {
+            $table->id();
+            $table->string('type_part');
+            $table->string('standart');
+            $table->string('score');            
+            $table->timestamps();
         });
     }
 
@@ -21,8 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('tes_praktek_ojt');
     }
 };

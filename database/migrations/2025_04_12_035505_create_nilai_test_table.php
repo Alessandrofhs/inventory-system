@@ -11,18 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('nilai_test', function (Blueprint $table) {
+        Schema::create('nilai_test_5R', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('materi_id');
-            $table->enum('tipe_test', ['pretest', 'posttest']);
-            $table->decimal('nilai', 5, 2); 
-            $table->date('tanggal');
+            $table->float('nilai_pretest');
+            $table->float('nilai_postest');
+            $table->float('total_nilai');
+            $table->string('penilai_id');
+            $table->dateTime('tanggal_pretest');
+            $table->dateTime('tanggal_postest');
+            $table->string('status');
             $table->timestamps();
 
             // Foreign key constraints
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('materi_id')->references('id')->on('materi')->onDelete('cascade');
+            $table->foreign('penilai_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nama_materi'); // contoh: OJT / 5R
             $table->unsignedBigInteger('created_by'); // relasi ke users.id
+            $file->string('file')->nullable(); // file materi
             $table->timestamps();
 
             // foreign key constraint
